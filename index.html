@@ -321,20 +321,25 @@
 
     /* ── Showcase Antes/Depois ── */
     .ba-showcase {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      max-width: 720px;
+      display: flex;
+      gap: 16px;
+      max-width: 640px;
       margin: 0 auto;
     }
 
-    .ba-showcase-item { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .ba-showcase-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
 
     .ba-showcase-label {
-      font-size: 1rem;
+      font-size: 0.88rem;
       font-weight: 800;
-      letter-spacing: 0.1em;
-      padding: 5px 20px;
+      letter-spacing: 0.12em;
+      padding: 4px 16px;
       border-radius: 50px;
     }
     .ba-showcase-before { color: var(--red);   background: rgba(192,57,43,0.1);  }
@@ -349,15 +354,10 @@
     }
     .ba-showcase-frame img {
       width: 100%;
-      height: 320px;
+      height: 240px;
       object-fit: cover;
       object-position: center center;
       display: block;
-    }
-
-    @media (max-width: 600px) {
-      .ba-showcase { grid-template-columns: 1fr; gap: 16px; }
-      .ba-showcase-frame img { height: 240px; }
     }
 
     .checklist {
@@ -1281,7 +1281,7 @@
      SEÇÃO ANTES / DEPOIS
      EDIT: headline e src das imagens
 ============================================= -->
-<section id="results" class="section" style="background: var(--cream-dark); padding: 72px 0;">
+<section id="results" class="section" style="background: var(--cream-dark); padding: 52px 0;">
   <div class="container text-center">
 
     <!-- EDIT: headline principal — "7 DIAS" em destaque -->
@@ -1632,10 +1632,9 @@
 
         <!-- EDIT: bio -->
         <p style="color: var(--text-light); font-size: 0.93rem; line-height: 1.7;">
-          Ana Benedito é educadora e entusiasta da caligrafia com anos de experiência ensinando
-          pessoas de todas as idades. Ela sistematizou seu método em um material completo e
-          acessível — pensado para que qualquer pessoa consiga evoluir com consistência e
-          sem frustração, independente da idade ou da letra atual.
+          Educadora apaixonada por caligrafia, Ana criou esse método depois de ver de perto
+          o quanto uma letra bonita transforma a autoestima das pessoas — na escola, no trabalho
+          e no dia a dia.
         </p>
 
         <div style="margin-top: 22px;">

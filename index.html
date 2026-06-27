@@ -353,7 +353,7 @@
       width: 100%;
       height: 290px;
       object-fit: cover;
-      object-position: top center;
+      object-position: center center;
     }
     .ba-label {
       position: absolute;
@@ -1078,9 +1078,10 @@
     ============================================= */
     .notif-wrap {
       position: fixed;
-      bottom: 24px; left: 24px;
-      z-index: 8000;
-      max-width: 295px;
+      bottom: 32px; left: 20px;
+      z-index: 500;          /* abaixo do popup (9999) e da topbar (200) */
+      max-width: 285px;
+      pointer-events: none;  /* não interfere com cliques */
     }
     .notif-card {
       background: var(--white);
@@ -1091,9 +1092,10 @@
       align-items: center;
       gap: 11px;
       border-left: 3px solid var(--gold);
-      transform: translateX(-120%);
+      transform: translateX(-140%);
       opacity: 0;
       transition: transform 0.48s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s ease;
+      pointer-events: auto;
     }
     .notif-card.show { transform: translateX(0); opacity: 1; }
 
@@ -1461,10 +1463,12 @@
         </ul>
 
         <!-- EDIT: botão CTA -->
-        <a href="#pricing" class="btn btn-gold">
-          Quero o meu acesso
-          <i class="fa-solid fa-arrow-right"></i>
-        </a>
+        <div style="text-align: center;">
+          <a href="#pricing" class="btn btn-gold">
+            Quero o meu acesso
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
       </div>
 
       <!-- Carrossel de imagens do interior do produto -->
@@ -1504,10 +1508,6 @@
 
             <div class="c-slide">
               <img src="images/interior-5.png" alt="Prática de letras cursivas A, B, C, D" loading="lazy">
-            </div>
-
-            <div class="c-slide">
-              <img src="images/letra-depois.png" alt="Resultado — caligrafia após o método" loading="lazy">
             </div>
 
           </div><!-- /c-track -->
@@ -1566,19 +1566,12 @@
           nasceu para provar isso, uma página de cada vez."
         </blockquote>
 
-        <!-- EDIT: bio parágrafo 1 -->
-        <p style="color: var(--text-light); margin-bottom: 18px; font-size: 0.95rem;">
-          Ana Benedito é educadora e entusiasta da caligrafia com anos de experiência
-          ensinando pessoas de todas as idades a transformarem sua escrita. Depois de
-          ajudar centenas de alunos de forma pessoal, ela sistematizou todo o seu
-          método em um material completo, prático e acessível.
-        </p>
-
-        <!-- EDIT: bio parágrafo 2 -->
-        <p style="color: var(--text-light); font-size: 0.95rem;">
-          Cada exercício foi pensado com cuidado para que qualquer pessoa — independente
-          da idade ou da "fealdade" atual da sua letra — consiga evoluir com consistência
-          e sem frustração.
+        <!-- EDIT: bio -->
+        <p style="color: var(--text-light); font-size: 0.93rem; line-height: 1.7;">
+          Ana Benedito é educadora e entusiasta da caligrafia com anos de experiência ensinando
+          pessoas de todas as idades. Ela sistematizou seu método em um material completo e
+          acessível — pensado para que qualquer pessoa consiga evoluir com consistência e
+          sem frustração, independente da idade ou da letra atual.
         </p>
 
         <div style="margin-top: 22px;">
@@ -1680,38 +1673,6 @@
         <p class="testi-text">
           Sempre tive vergonha da minha letra, especialmente no trabalho. Esse método me deu a confiança
           que eu precisava. A melhora foi gradual mas consistente. Vale muito o investimento.
-        </p>
-      </div>
-
-      <!-- EDIT: Depoimento 5 -->
-      <div class="testi-card anim anim-d2">
-        <div class="testi-header">
-          <div class="testi-avatar">J</div>
-          <div>
-            <div class="testi-name">João Pedro Santos</div>
-            <div class="testi-location">Porto Alegre, RS</div>
-          </div>
-        </div>
-        <div class="stars">★★★★★</div>
-        <p class="testi-text">
-          Comecei com 52 anos achando que era tarde demais. Engano total. O método é progressivo e
-          dá para encaixar no dia a dia sem dificuldade. Minha letra melhorou muito e me tornei mais paciente.
-        </p>
-      </div>
-
-      <!-- EDIT: Depoimento 6 -->
-      <div class="testi-card anim anim-d3">
-        <div class="testi-header">
-          <div class="testi-avatar">F</div>
-          <div>
-            <div class="testi-name">Fernanda Oliveira</div>
-            <div class="testi-location">Recife, PE</div>
-          </div>
-        </div>
-        <div class="stars">★★★★★</div>
-        <p class="testi-text">
-          Já tentei outros métodos mas desistia no meio. O Caligrafia Impecável é diferente — você sente
-          a evolução a cada semana. Já indiquei para minha mãe e minha sobrinha!
         </p>
       </div>
 
@@ -2182,7 +2143,7 @@
 <footer>
   <div class="container">
     <p style="font-size: 0.92rem; margin-bottom: 10px;">
-      <strong>Método Caligrafia Impecável</strong> · por Ana Benedito
+      <strong>Por Ana Benedito — Grupo Avant</strong>
     </p>
     <p>
       <!-- EDIT: adicione suas URLs de política de privacidade e termos -->
@@ -2472,12 +2433,20 @@ document.addEventListener('keydown', function(e) {
   var avatarEl  = document.getElementById('notifAvatar');
   var nameEl    = document.getElementById('notifName');
   var msgEl     = document.getElementById('notifMsg');
+  var isShowing = false;  /* guard: evita sobreposição de notificações */
 
   function rand(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
   function show() {
+    if (isShowing) {
+      /* Se já está mostrando, tenta de novo em 3 s */
+      setTimeout(show, 3000);
+      return;
+    }
+    isShowing = true;
+
     var person = names[rand(0, names.length - 1)];
     var msg    = msgs[rand(0, msgs.length - 1)];
     var mins   = rand(MIN_MINS, MAX_MINS);
@@ -2489,10 +2458,12 @@ document.addEventListener('keydown', function(e) {
     card.classList.add('show');
 
     /* Esconde após 5 s */
-    setTimeout(function() { card.classList.remove('show'); }, 5000);
-
-    /* Agenda próxima notificação */
-    setTimeout(show, rand(MIN_INT, MAX_INT));
+    setTimeout(function() {
+      card.classList.remove('show');
+      isShowing = false;
+      /* Agenda próxima notificação */
+      setTimeout(show, rand(MIN_INT, MAX_INT));
+    }, 5000);
   }
 
   /* Primeiro disparo: entre 9 s e 16 s após o carregamento */

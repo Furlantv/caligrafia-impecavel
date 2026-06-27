@@ -315,10 +315,49 @@
     #problem { padding: 88px 0; }
 
     .problem-grid {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* ── Showcase Antes/Depois ── */
+    .ba-showcase {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 64px;
-      align-items: center;
+      gap: 20px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .ba-showcase-item { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+
+    .ba-showcase-label {
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      padding: 5px 20px;
+      border-radius: 50px;
+    }
+    .ba-showcase-before { color: var(--red);   background: rgba(192,57,43,0.1);  }
+    .ba-showcase-after  { color: var(--green); background: rgba(46,125,82,0.12); }
+
+    .ba-showcase-frame {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      border: 3px solid rgba(0,0,0,0.07);
+      width: 100%;
+    }
+    .ba-showcase-frame img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+    }
+
+    @media (max-width: 600px) {
+      .ba-showcase { grid-template-columns: 1fr; gap: 16px; }
+      .ba-showcase-frame img { height: 240px; }
     }
 
     .checklist {
@@ -1239,15 +1278,65 @@
 
 
 <!-- =============================================
+     SEÇÃO ANTES / DEPOIS
+     EDIT: headline e src das imagens
+============================================= -->
+<section id="results" class="section" style="background: var(--cream-dark); padding: 72px 0;">
+  <div class="container text-center">
+
+    <!-- EDIT: headline principal — "7 DIAS" em destaque -->
+    <h2 class="anim" style="font-size: clamp(1.5rem, 4vw, 2.2rem); max-width: 680px; margin: 0 auto 40px;">
+      Esse é o resultado de uma de nossas alunas em apenas
+      <em style="color: var(--gold-dark); font-style: normal; white-space: nowrap;">7 DIAS:</em>
+    </h2>
+
+    <div class="ba-showcase anim anim-d1">
+
+      <!-- ANTES -->
+      <div class="ba-showcase-item">
+        <div class="ba-showcase-label ba-showcase-before">ANTES</div>
+        <div class="ba-showcase-frame">
+          <img
+            src="images/letra-antes.webp"
+            alt="Letra antes do método — escrita difícil de ler"
+            loading="lazy"
+          >
+        </div>
+      </div>
+
+      <!-- DEPOIS -->
+      <div class="ba-showcase-item">
+        <div class="ba-showcase-label ba-showcase-after">DEPOIS</div>
+        <div class="ba-showcase-frame">
+          <img
+            src="images/letra-depois.png"
+            alt="Letra depois do método — caligrafia impecável"
+            loading="lazy"
+          >
+        </div>
+      </div>
+
+    </div>
+
+    <!-- EDIT: linha de reforço abaixo das imagens -->
+    <p class="anim anim-d2" style="margin-top: 28px; color: var(--text-light); font-size: 0.95rem;">
+      Em apenas <strong style="color: var(--dark);">7 dias de prática</strong>, nossos alunos já começam a notar
+      uma diferença real na própria letra — e isso vale para qualquer idade.
+    </p>
+
+  </div>
+</section>
+
+
+<!-- =============================================
      SEÇÃO PROBLEMA (ElementA)
-     EDIT: lista de problemas e caminhos das imagens
+     EDIT: lista de problemas
 ============================================= -->
 <section id="problem" class="section">
   <div class="container">
     <div class="problem-grid">
 
-      <!-- Texto do problema -->
-      <div class="anim">
+      <div class="anim text-center" style="margin-bottom: 24px;">
         <!-- EDIT: label -->
         <span class="label">Você se identifica com isso?</span>
 
@@ -1289,31 +1378,6 @@
           A boa notícia é que caligrafia é uma <strong>habilidade treinável</strong>.
           Qualquer pessoa consegue melhorar — e esse método foi criado exatamente para isso.
         </p>
-      </div>
-
-      <!-- Fotos Antes / Depois -->
-      <div class="before-after anim anim-d2">
-
-        <!-- EDIT: src = imagem "antes" (letra feia.webp) -->
-        <div class="ba-item">
-          <img
-            src="images/letra-antes.webp"
-            alt="Letra antes do método — escrita difícil de ler"
-            loading="lazy"
-          >
-          <div class="ba-label ba-before">✗ Antes</div>
-        </div>
-
-        <!-- EDIT: src = imagem "depois" (letra bonita) -->
-        <div class="ba-item">
-          <img
-            src="images/letra-depois.png"
-            alt="Letra depois do método — caligrafia impecável"
-            loading="lazy"
-          >
-          <div class="ba-label ba-after">✓ Depois</div>
-        </div>
-
       </div>
 
     </div>
